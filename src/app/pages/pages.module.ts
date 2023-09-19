@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 import { RegistroComponent } from './login/registro/registro.component';
 import { MainComponent } from './main/main.component';
 import { FaqComponent } from './faq/faq.component';
 import { EventosComponent } from './eventos/eventos.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -19,7 +21,8 @@ import { EventosComponent } from './eventos/eventos.component';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ]
 })
 export class PagesModule { }

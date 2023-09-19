@@ -1,16 +1,18 @@
+<form [formGroup]="formulario" (ngSubmit)="onRegis()">
 <div class="container">
     <div class="mb-6">
         <label for="" class="form-label">Email:</label>
-        <input type="text" class="form-control" name="" id="" placeholder="Ingrese su usuario: ">
+        <input type="text" formControlName="usernameinput" class="form-control" name="" id="" placeholder="Ingrese su usuario: ">
     </div>
     <div class="mb-6">
         <label for="" class="form-label">Contraseña:</label>
-        <input type="password" class="form-control" name="" id="" placeholder="Ingrese su contraseña:">
+        <input type="password" formControlName="passwordinput" class="form-control" name="" id="" placeholder="Ingrese su contraseña:">
     </div>
     <div class="mb-6">
         <label for="" class="form-label">Confirmar contraseña:</label>
-        <input type="password" class="form-control" name="" id="" placeholder="Ingrese su contraseña:">
+        <input type="passwordinput" class="form-control" name="" id="" placeholder="Ingrese su contraseña:">
     </div>
 
-    <button type="button" on-click="onRegis()" class="btn btn-primary">Registrarse</button>
+    <button type="submit" class="btn btn-primary">Registrarse</button>
 </div>
+</form>

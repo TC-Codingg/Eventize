@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "pgOptions": {
+                "ssl": true
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "driver": "PostgreSQL",
+            "name": "BaseEventizer",
+            "connectString": "postgres://fl0user:FA0kHVcWP5al@ep-autumn-cake-59558031.us-east-2.aws.neon.tech:5432/base-de-datos?sslmode=require"
+        }
+    ]
+}
