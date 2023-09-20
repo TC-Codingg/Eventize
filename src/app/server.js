@@ -12,6 +12,8 @@ app.use(cors({
 
 app.use(express.json());
 
+let session=[]
+
 const pool = new Pool({
     user: 'fl0user',
     host: 'ep-autumn-cake-59558031.us-east-2.aws.neon.tech',
@@ -27,7 +29,7 @@ app.post('/api/registrar', async (req, res) => {
         const client = await pool.connect();
         const {username, password} = req.body;
         
-        console.log("Registrado: ", username, password)
+        //console.log("Registrado: ", username, password);
 
         const result = 
         await client.query('INSERT INTO "Usuarios" ("Usuario", "Contraseña") VALUES ($1, $2);', [username, password])
@@ -45,20 +47,21 @@ app.post('/api/registrar', async (req, res) => {
     }
 })
 
-app.delete('/api/eliminaruser', async (req, res) => {
+app.post('/api/eliminaruser', async (req, res) => {
     try {
         const client = await pool.connect();
-        const {username, password} = req.body
-        console.log("Eliminando: ", username, password)
+        const {username, password} = req.body;
+        //console.log("Eliminando: ", username, password);
 
         const result = 
-        await client.query('DELETE FROM "Usuarios" WHERE "Usuarios" = $1, "Contraseña" = $2;', [username, password])
+        await client.query('DELETE FROM "Usuarios" WHERE ("Usuarios", "Contraseña") = ($1, $2);', [username, password])
 
+        datos = result.rows
         client.release();
-        res.json()
+        res.json(datos)
     }
     catch (err){
-        console.error('Error: ', err)
+        console.error('Error al eliminar: ', err)
     }
 })
 
@@ -68,7 +71,7 @@ app.post('/api/verificar', async (req, res) => {
         const client = await pool.connect();
         const {username, password} = req.body;
 
-        console.log("Verificando... ", username, password)
+        //console.log("Verificando... ", username, password);
 
         const result = 
         await client.query('SELECT "Usuario", "Contraseña" FROM "Usuarios"')
@@ -79,11 +82,12 @@ app.post('/api/verificar', async (req, res) => {
         for (let creds = 0; creds < datos.length; creds++) {
             const usersdb = datos[creds].Usuario;
             const passesdb = datos[creds].Contraseña;
-            console.log = datos[creds].Usuario
+            //console.log = datos[creds].Usuario;
 
             if (username === usersdb && password === passesdb) {
-                console.log("Verificadooo")
+                //console.log("Verificadooo");
                 verificado = true
+                session = [username, password]
                 break;
         }
         }
@@ -106,5 +110,5 @@ app.post('/api/verificar', async (req, res) => {
 })
 
 app.listen(port, () =>{
-    console.log(`Ejecutado en puerto ${port}` )
+    console.log(`Ejecutado en puerto ${port}` );
 })

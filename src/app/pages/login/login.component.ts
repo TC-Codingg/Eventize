@@ -10,6 +10,10 @@ import { DataService } from 'src/app/data.service';
 export class LoginComponent {
   formulario: any;
 
+  UserLog: any;
+  PassLog: any;
+
+
   constructor (private dataservice: DataService, private fb: FormBuilder){
     this.formulario= this.fb.group(
       {
@@ -33,20 +37,17 @@ export class LoginComponent {
 
   onLogin(){
     console.log(this.Usernameinter.value)
-    const UserLog = this.Usernameinter.value
-    const PassLog = this.Passwordinter.value
+    this.UserLog = this.Usernameinter.value
+    this.PassLog = this.Passwordinter.value
 
-    this.dataservice.Login(UserLog, PassLog)
+    this.dataservice.Login(this.UserLog, this.PassLog)
     alert("Verificando usuario...")
     }
 
   EliminarUser(){
-    const UserLog = this.Usernameinter.value
-    const PassLog = this.Usernameinter.value
-    
-    this.dataservice.EliminarUser(UserLog, PassLog)
-    alert("Eliminando " + UserLog + "...")
-
+    this.dataservice.EliminarUser(this.UserLog, this.PassLog)
+    alert("Eliminando " + this.UserLog + "...")
+  
 
   }
   

@@ -65,6 +65,7 @@ EliminarUser(UserLog: string, PassLog: string){
     userlog: UserLog,
     passLog: PassLog
   }
+  
   this.http.post(this.apiurl + "eliminaruser", datosLog).subscribe(
     (response) => {
       alert("Adiós " + UserLog)
