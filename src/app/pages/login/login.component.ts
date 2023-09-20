@@ -9,7 +9,6 @@ import { DataService } from 'src/app/data.service';
 })
 export class LoginComponent {
   formulario: any;
-  verificado: boolean = false;
 
   constructor (private dataservice: DataService, private fb: FormBuilder){
     this.formulario= this.fb.group(
@@ -28,17 +27,28 @@ export class LoginComponent {
     return this.formulario.get("passwordinput")
   }
 
+  checkValidado(){
+    return this.dataservice.checkVerificado
+    }
+
   onLogin(){
     console.log(this.Usernameinter.value)
-    /*const UserValido = this.Usernameinter.value === this.dataservice.datosUsuario[0]
-    const PassValida = this.Passwordinter.value === this.dataservice.datosUsuario[1]
-    if (UserValido && PassValida) {
-      this.verificado = true
-      if (this.verificado == true) {
-        alert("Logueado con éxito")
-      }
-    }*/
+    const UserLog = this.Usernameinter.value
+    const PassLog = this.Passwordinter.value
+
+    this.dataservice.Login(UserLog, PassLog)
+    alert("Verificando usuario...")
+    }
+
+  EliminarUser(){
+    const UserLog = this.Usernameinter.value
+    const PassLog = this.Usernameinter.value
+    
+    this.dataservice.EliminarUser(UserLog, PassLog)
+    alert("Eliminando " + UserLog + "...")
+
+
+  }
+  
   }
 
-
-}

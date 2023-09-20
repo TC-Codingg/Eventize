@@ -1,7 +1,8 @@
-<form [formGroup]="formulario" (ngSubmit)="onLogin()">
+<div class="container" [ngSwitch]="checkValidado()">
+<form [formGroup]="formulario" *ngSwitchDefault (ngSubmit)="onLogin()">
     <div class="container">
         <div class="mb-6">
-            <label for="" class="form-label">Email:</label>
+            <label for="" class="form-label">Usuario:</label>
             <input type="text" formControlName="usernameinput" class="form-control" name="" id="" placeholder="Ingrese su usuario: ">
         </div>
         <div class="mb-6">
@@ -15,3 +16,12 @@
         </div>
     </div>
 </form>
+<form [formGroup]="formulario" *ngSwitchCase="true" (ngSubmit)="EliminarUser()">
+    <div class="container">
+        <div class="mb-6">
+            <p>Está seguro de querer eliminar la cuenta ? </p>
+            <button type="submit" class="btn btn-primary">Aceptar</button>
+        </div>
+    </div>
+</form>
+</div>

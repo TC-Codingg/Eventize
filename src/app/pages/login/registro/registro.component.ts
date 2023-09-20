@@ -38,12 +38,12 @@ onRegis(): void {
   this.username = this.formulario.get("usernameinput").value
   this.password = this.formulario.get("passwordinput").value
   //Relación con BD
-  this.dataservice.DatosUser(this.username, this.password)
+  this.dataservice.RegisUser(this.username, this.password)
   /*this.dataservice.getDatos().subscribe((data) =>{
     this.datos = data;
     console.log(this.datos)
   })*/
-  alert("Usuario registrado como " + this.username);
+  alert("Registrando...");
 }  
 
 
