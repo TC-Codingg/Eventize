@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { PagesModule } from './pages/pages.module';
 import { Pool, QueryResult } from 'pg';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -7,27 +8,27 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   providedIn: 'root'
 })
 export class DataService {
+  private apiurl = 'http://localhost:3000/api/';
   
-  constructor() {
-    /* const conexion = 'postgres://fl0user:FA0kHVcWP5al@ep-autumn-cake-59558031.us-east-2.aws.neon.tech:5432/base-de-datos?sslmode=require'
-    const {Pool} = require('pg')
-    const sql = new Pool({
-      user: 'fl0user',
-      host: 'ep-autumn-cake-59558031.us-east-2.aws.neon.tech',
-      database: 'base-de-datos',
-      password: 'FA0kHVcWP5al',
-      port: '5432',
-      
-    })*/
-   }
-  datosUsuario: string[] = []
+  constructor(private http: HttpClient) {}
   
+  getDatos(){
+    return this.http.get<any[]>(this.apiurl)
+  }
 
 DatosUser(credUser: string, credPass: string){
-  this.datosUsuario.push(credUser, credPass)
-  console.log(this.datosUsuario)
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json'
+  });
+
+  let datosUsuario = {
+    username: credUser,
+    password: credPass
+  } || null
   
-  
+  this.http.post(this.apiurl + "registrar", datosUsuario, {headers}).subscribe()
+  console.log(datosUsuario)
+  datosUsuario == null;
 
 }
 }

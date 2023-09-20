@@ -9,11 +9,12 @@ import { DataService } from 'src/app/data.service';
 })
 export class RegistroComponent {
 
+datos: any[] = [];
 formulario: any;
 username: any;
 password: any;
 
-constructor (private datos: DataService, private fb: FormBuilder){
+constructor (private dataservice: DataService, private fb: FormBuilder){
 
   this.formulario= this.fb.group(
     {
@@ -36,11 +37,15 @@ get Passwordinter(){
 onRegis(): void {
   this.username = this.formulario.get("usernameinput").value
   this.password = this.formulario.get("passwordinput").value
-  this.datos.DatosUser(this.username, this.password)
   //Relación con BD
+  this.dataservice.DatosUser(this.username, this.password)
+  /*this.dataservice.getDatos().subscribe((data) =>{
+    this.datos = data;
+    console.log(this.datos)
+  })*/
   alert("Usuario registrado como " + this.username);
 }  
 
-}
 
+}
 

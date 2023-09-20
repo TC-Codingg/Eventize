@@ -11,7 +11,7 @@ export class LoginComponent {
   formulario: any;
   verificado: boolean = false;
 
-  constructor (private datos: DataService, private fb: FormBuilder){
+  constructor (private dataservice: DataService, private fb: FormBuilder){
     this.formulario= this.fb.group(
       {
         usernameinput:["",[Validators.required]],
@@ -30,14 +30,14 @@ export class LoginComponent {
 
   onLogin(){
     console.log(this.Usernameinter.value)
-    const UserValido = this.Usernameinter.value === this.datos.datosUsuario[0]
-    const PassValida = this.Passwordinter.value === this.datos.datosUsuario[1]
+    /*const UserValido = this.Usernameinter.value === this.dataservice.datosUsuario[0]
+    const PassValida = this.Passwordinter.value === this.dataservice.datosUsuario[1]
     if (UserValido && PassValida) {
       this.verificado = true
       if (this.verificado == true) {
         alert("Logueado con éxito")
       }
-    }
+    }*/
   }
 
 
