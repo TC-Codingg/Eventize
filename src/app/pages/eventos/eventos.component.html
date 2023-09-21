@@ -1,1 +1,32 @@
-<p>eventos works!</p>
+<div [ngSwitch]="checkVerificado()">
+    <div *ngSwitchDefault class="container">
+        <h2>Inicia sesión para organizar tus eventos</h2>
+        <button type="button" [routerLink]="['/login']" class="btn btn-primary">Iniciar sesión</button>
+    </div>
+    <div *ngSwitchCase="true" class="container">
+        <div class="table-responsive">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre </th>
+                        <th scope="col">Categoría</th>
+                        <th scope="col">Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="">
+                        <td scope="row">R1C1</td>
+                        <td>R1C2</td>
+                        <td>R1C3</td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">Item</td>
+                        <td>Item</td>
+                        <td>Item</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div>

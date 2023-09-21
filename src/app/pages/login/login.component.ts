@@ -34,9 +34,11 @@ export class LoginComponent {
   checkValidado(){
     return this.dataservice.checkVerificado
     }
+  
+  
 
   onLogin(){
-    console.log(this.Usernameinter.value)
+    console.log(this.Usernameinter.value + " en fase 1")
     this.UserLog = this.Usernameinter.value
     this.PassLog = this.Passwordinter.value
 

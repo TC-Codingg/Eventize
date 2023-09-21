@@ -4,7 +4,7 @@ const cors = require('cors')
 
 //const { async } = require('rxjs');
 const app = express()
-const port = process.env.PORT || 3000;
+const port = 3000;
 
 app.use(cors({
     origin: 'http://localhost:4200'
@@ -12,7 +12,8 @@ app.use(cors({
 
 app.use(express.json());
 
-let session=[]
+
+let sesionVerificada = false
 
 const pool = new Pool({
     user: 'fl0user',
@@ -43,7 +44,7 @@ app.post('/api/registrar', async (req, res) => {
         res.json(datos)
     }
     catch (err){
-        console.error('Error: ', err)
+        console.error('Error al registrar: ', err)
     }
 })
 
@@ -51,10 +52,10 @@ app.post('/api/eliminaruser', async (req, res) => {
     try {
         const client = await pool.connect();
         const {username, password} = req.body;
-        //console.log("Eliminando: ", username, password);
+        console.log("Eliminando: ", username, password);
 
         const result = 
-        await client.query('DELETE FROM "Usuarios" WHERE ("Usuarios", "Contraseña") = ($1, $2);', [username, password])
+        await client.query('DELETE FROM "Usuarios" WHERE ("Usuario", "Contraseña") = ($1, $2);', [username, password])
 
         datos = result.rows
         client.release();
@@ -68,6 +69,7 @@ app.post('/api/eliminaruser', async (req, res) => {
 
 app.post('/api/verificar', async (req, res) => {
     try {
+        let verificado = false;
         const client = await pool.connect();
         const {username, password} = req.body;
 
@@ -77,15 +79,13 @@ app.post('/api/verificar', async (req, res) => {
         await client.query('SELECT "Usuario", "Contraseña" FROM "Usuarios"')
 
         const datos = result.rows;
-        let verificado = false
 
         for (let creds = 0; creds < datos.length; creds++) {
             const usersdb = datos[creds].Usuario;
             const passesdb = datos[creds].Contraseña;
-            //console.log = datos[creds].Usuario;
 
-            if (username === usersdb && password === passesdb) {
-                //console.log("Verificadooo");
+            if (username == usersdb && password == passesdb) {
+                console.log("Verificadooo");
                 verificado = true
                 session = [username, password]
                 break;
@@ -99,15 +99,41 @@ app.post('/api/verificar', async (req, res) => {
             res.json({verificado: true})
         }
         else{
-            res.json({verificado: false})
+            res.status(503).json()
         }
 
     }
     catch (err){
-        console.error('Error: ', err)
+        console.error('Error al verificar: ', err)
         res.status(500).json(err)
     }
 })
+
+
+
+//Pendientes
+/* app.post('/api/guardarsesion', async (req, res) => {
+    try {
+        const {verificado} = req.body;
+        console.log("Guardando sesión: ", verificado);
+        
+        sesionVerificada = verificado
+
+        res.json()
+    }
+    catch (err){
+        console.error('Error al guardar sesión: ', err)
+    }
+})
+
+app.get('/api/traersesion', async (req, res) => {
+    try {
+        res.json(sesionVerificada)
+    }
+    catch (err){
+        console.error('Error al retornar sesión: ', err)
+    }
+})*/ 
 
 app.listen(port, () =>{
     console.log(`Ejecutado en puerto ${port}` );

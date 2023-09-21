@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-eventos',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class EventosComponent {
 
+  constructor(private dataservice: DataService){}
+
+  checkVerificado(){
+  return this.dataservice.checkVerificado
+  }
 }

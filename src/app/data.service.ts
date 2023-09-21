@@ -35,19 +35,21 @@ RegisUser(credUser: string, credPass: string){
     }
   )
   console.log(datosUsuario)
-  datosUsuario == null;
+  datosUsuario === null;
 }
 
 Login(UserLog: string, PassLog: string){
   let datosLog = {
-    userlog: UserLog,
-    passLog: PassLog
+    username: UserLog,
+    password: PassLog
   }
+  console.log(UserLog + PassLog + " en fase 2")
 
   this.http.post(this.apiurl + "verificar", datosLog).subscribe(
     (response) => {
       alert("Bienvenido a Eventize " + UserLog)
       this.verificado = true
+    
     },
     (error) =>{
       alert("Credenciales incorrectas. Intente nuevamente")
@@ -56,14 +58,27 @@ Login(UserLog: string, PassLog: string){
   
 }
 
+verificar (){
+  this.http.post(this.apiurl + "guardarsesion", this.verificado).subscribe()
+}
+
+sesion(){ //Modificación pendiente
+  this.http.get<boolean>(this.apiurl + "traersesion").subscribe(
+    (res)=>{
+      this.verificado = res;
+    })
+    
+    return this.verificado}
+
+
 get checkVerificado(){
   return  this.verificado;
 }
 
 EliminarUser(UserLog: string, PassLog: string){
   let datosLog = {
-    userlog: UserLog,
-    passLog: PassLog
+    username: UserLog,
+    password: PassLog
   }
   
   this.http.post(this.apiurl + "eliminaruser", datosLog).subscribe(
@@ -77,5 +92,7 @@ EliminarUser(UserLog: string, PassLog: string){
   );
 
 }
+
+
 
 }
