@@ -230,7 +230,9 @@ app.post('/api/eliminarevento', async (req, res) => {
         const client = await pool.connect();
         const {ID} = req.body;
         console.log("Eliminando evento ", ID);
-
+        
+        const result2 = 
+        await client.query('DELETE FROM "Invitados" WHERE ("ID_Evento") = ($1);', [ID])
         const result = 
         await client.query('DELETE FROM "Eventos" WHERE ("ID") = ($1);', [ID])
 
@@ -309,6 +311,23 @@ app.post('/api/modevento', async (req, res) => {
     }
     catch (err){
         console.error('Error al actualizar: ', err)
+    }
+})
+
+app.post('/api/eliminarinvitado', async (req, res) => {
+    try {
+        const client = await pool.connect();
+        const {DNI} = req.body;
+        console.log("Eliminando invitado DNI: ", DNI);
+
+        const result = 
+        await client.query('DELETE FROM "Invitados" WHERE ("DNI") = ($1);', [DNI])
+
+        client.release();
+        res.json()
+    }
+    catch (err){
+        console.error('Error al eliminar invitado: ', err)
     }
 })
 

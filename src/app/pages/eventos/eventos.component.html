@@ -4,6 +4,7 @@
         <button type="button" [routerLink]="['/login']" class="btn btn-primary">Iniciar sesión</button>
     </div>
     <div *ngSwitchCase="true" class="container">
+        <h3>(Clickea en un evento para editarlo)</h3>
         <div class="table-responsive">
             <table class="table table-primary">
                 <thead>
@@ -62,7 +63,7 @@
                             </td>
 
                             <td> 
-                                <input [ngModel]="Fechanew" formControlName="Fechanewinput"> 
+                                <input type="date" [ngModel]="Fechanew" formControlName="Fechanewinput"> 
                             </td>
                             <td><button type="submit" class="btn btn-warning"> Editar evento </button></td>
                         </tr>

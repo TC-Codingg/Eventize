@@ -159,6 +159,18 @@ Invitar(Nombreinput :string, Apellidoinput: string, DNIinput: string){
   )
 }
 
+EliminarInv(ID: string){
+
+  console.log("borrar inv ", ID)
+  this.http.post(this.apiurl + "eliminarinvitado", {DNI: ID}).subscribe(
+    (response) => {
+       alert ("Invitado borrado");
+       this.router.navigate(['/eventos'])
+    }
+  )
+}
+
+
 private respuestaInv = new Subject<any>();
 private eventoID = new Number()
 verInv(ID: Number){

@@ -1,7 +1,7 @@
 <h2>Invitados: </h2>
-  <ul *ngFor="let invitado of invitados" class="list-group">
+<ul *ngFor="let invitado of invitados" class="list-group">
     <li class="list-group-item d-flex justify-content-between align-items-center">
-        {{invitado.Nombre}} {{invitado.Apellido}} {{invitado. DNI}}
+        {{invitado.Nombre}} {{invitado.Apellido}} {{invitado. DNI}} <button (click)="EliminarInv(invitado.DNI)" type="button" class="btn btn-info">Eliminar</button>
     </li>
   </ul>
     <li class="list-group-item d-flex justify-content-between align-items-center">

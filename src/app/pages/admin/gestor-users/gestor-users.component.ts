@@ -16,7 +16,7 @@ export class GestorUsersComponent implements OnInit {
       {
         Nombreinput: ["",[Validators.required]],
         Apellidoinput: ["",[Validators.required]],
-        DNIinput: ["",[Validators.required]]
+        DNIinput: ["",[Validators.required, Validators.minLength(8)]]
       }
     )
   }
@@ -46,6 +46,11 @@ export class GestorUsersComponent implements OnInit {
   Invitar(){
     this.dataservice.Invitar(this.Nombreinput.value, this.Apellidoinput.value, this.DNIinput.value)
     alert("Invitando a " + this.Nombreinput.value + " " + this.Apellidoinput)
+  }
+
+  EliminarInv(ID: string){
+    
+    this.dataservice.EliminarInv(ID)
   }
 
 

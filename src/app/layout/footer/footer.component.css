@@ -14,3 +14,10 @@
 .row-custom p {
     margin: 0; 
 }
+
+div {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
