@@ -1,0 +1,44 @@
+/* Estilo para la página de Preguntas Frecuentes */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #d2b48c; /* Fondo beige más fuerte */
+    color: #333; /* Color de texto oscuro */
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    background-color: #800080; /* Violeta */
+    color: #fff; /* Texto blanco */
+    padding: 20px 0;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+main {
+    padding: 20px;
+}
+
+.preguntas {
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    color: #800080; /* Violeta */
+}
+
+p {
+    font-size: 18px;
+}
+
+footer {
+    text-align: center;
+    background-color: #d2b48c; /* Fondo beige más fuerte */
+    padding: 10px 0;
+    color: #333; /* Color de texto oscuro */
+}
