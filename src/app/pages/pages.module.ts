@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
@@ -27,6 +27,9 @@ import { GestorUsersComponent } from './admin/gestor-users/gestor-users.componen
     RouterModule,
     ReactiveFormsModule,
     BrowserModule
+  ],
+  providers: [
+    DatePipe
   ]
 })
 export class PagesModule { }

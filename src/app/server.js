@@ -292,6 +292,26 @@ app.post('/api/invitar', async (req, res) => {
     }
 })
 
+app.post('/api/modevento', async (req, res) => {
+    try {
+        const client = await pool.connect();
+        const {datosNew} = req.body;
+        
+        console.log("Actualizando... ", datosNew.ID, datosNew.Nombre, datosNew.Categoria, datosNew.Fecha);
+
+        const result = 
+        await client.query('UPDATE "Eventos" SET "Nombre" = $1, "ID_Categoria" = $2, "Fecha"= $3 WHERE "ID" = $4;', [datosNew.Nombre, datosNew.Categoria, datosNew.Fecha, datosNew.ID])
+
+        const datos = result.rows;
+        client.release();
+
+        res.json(datos)
+    }
+    catch (err){
+        console.error('Error al actualizar: ', err)
+    }
+})
+
 
 app.listen(port, () =>{
     console.log(`Ejecutado en puerto ${port}`);

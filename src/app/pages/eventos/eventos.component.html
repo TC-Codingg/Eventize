@@ -18,7 +18,7 @@
                 
                 <tbody>
                     <tr class="" *ngFor="let evento of eventos">
-                        <td scope="row" >{{ evento.Nombre }}</td>
+                        <td scope="row" (click)="modEventobutton(evento.ID, evento.Nombre, evento.Categoria, evento.Fecha)" >{{ evento.Nombre }}</td>
                         <td>{{ evento.Categoria }}</td>
                         <td>{{ evento.Fecha | date:"dd/MM/yyyy" }}</td>
                         <td><button type="button" (click)="verInv(evento.ID)" class="btn btn-primary"> Ver Invitados </button></td>
@@ -44,6 +44,27 @@
                                     <input type="date" formControlName="Fechainput"> 
                                 </td>
                                 <td><button type="submit"  class="btn btn-primary"> Añadir evento </button></td>
+                        </tr>
+                    </form>
+                    <form [ngSwitch]="mostrarMod" [formGroup]="formularionew" (ngSubmit)="modEvento()">
+                        <tr *ngSwitchCase="true" class="">
+                            <td scope="row">
+                                <input formControlName="Nombrenewinput" [ngModel] ="Nombrenew">
+                            </td>
+
+                            <td> 
+                            <select formControlName="Catnewinput">
+                                
+                                <option *ngFor="let categoria of categorias" value="{{ categoria.ID }}"> {{categoria.Tipo}} </option>
+
+                                
+                            </select>
+                            </td>
+
+                            <td> 
+                                <input [ngModel]="Fechanew" formControlName="Fechanewinput"> 
+                            </td>
+                            <td><button type="submit" class="btn btn-warning"> Editar evento </button></td>
                         </tr>
                     </form>
                     </div>

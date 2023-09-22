@@ -11,15 +11,18 @@ export class RegistroComponent {
 
 datos: any[] = [];
 formulario: any;
+
 username: any;
 password: any;
+confpass: any;
 
 constructor (private dataservice: DataService, private fb: FormBuilder){
 
   this.formulario= this.fb.group(
     {
       usernameinput:["",[Validators.required, Validators.minLength(8)]],
-      passwordinput:["",[Validators.required]]
+      passwordinput:["",[Validators.required]],
+      confPass: ["", [Validators.required]]
     }
   );
   
@@ -34,17 +37,29 @@ get Passwordinter(){
   return this.formulario.get("passwordinput")
 }
 
+get confirPass(){
+  return this.formulario.get("confPass")
+}
+
 onRegis(): void {
   this.username = this.formulario.get("usernameinput").value
   this.password = this.formulario.get("passwordinput").value
+  this.confpass = this.formulario.get("confPass").value
+
+  if (this.password === this.confpass){
   //Relación con BD
-  this.dataservice.RegisUser(this.username, this.password)
+    this.dataservice.RegisUser(this.username, this.password)
   /*this.dataservice.getDatos().subscribe((data) =>{
     this.datos = data;
     console.log(this.datos)
   })*/
-  alert("Registrando...");
-}  
+    alert("Registrando...");
+} 
+  else {
+    alert("Las contraseñas no coinciden")
+  }
+
+}
 
 
 }

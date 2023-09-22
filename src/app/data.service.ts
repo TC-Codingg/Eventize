@@ -120,6 +120,16 @@ añadirEvento(Nombreinput: string, Catinput: string, Fechainput: string){
   )
 }
 
+modEvento(datosNew: {ID: string, Nombre: string, Categoria: string, Fecha: string}){
+  console.log("modevento: " , datosNew)
+  
+  this.http.post(this.apiurl + "modevento" , {datosNew}).subscribe(
+    (response) => {
+      alert("Evento modificado")
+    }
+  )
+}
+
 eliminarEvento(ID_Evento: string){
   let datosID = {
     ID: ID_Evento
