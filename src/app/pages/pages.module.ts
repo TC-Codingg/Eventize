@@ -8,6 +8,8 @@ import { MainComponent } from './main/main.component';
 import { FaqComponent } from './faq/faq.component';
 import { EventosComponent } from './eventos/eventos.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { GestorUsersComponent } from './admin/gestor-users/gestor-users.component';
 
 
 
@@ -17,12 +19,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     RegistroComponent,
     MainComponent,
     FaqComponent,
-    EventosComponent
+    EventosComponent,
+    GestorUsersComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserModule
   ]
 })
 export class PagesModule { }

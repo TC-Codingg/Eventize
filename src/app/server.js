@@ -135,6 +135,164 @@ app.get('/api/traersesion', async (req, res) => {
     }
 })*/ 
 
+
+app.get('/api/eventos', async (req, res) => {
+    try {
+        const client = await pool.connect();
+
+        /*let usersdb = []
+        let passesdb = []*/
+
+        console.log("Consultando eventos... ");
+
+        const result = 
+        await client.query('SELECT e."Nombre", c."Tipo", e."Fecha", e."ID" FROM "Eventos" e JOIN "Categorias" c ON e."ID_Categoria" = c."ID"')
+
+        const datos = result.rows;
+
+        const eventos = datos.map(
+            (fila) => ({
+                Nombre: fila.Nombre,
+                Categoria: fila.Tipo,
+                Fecha: fila.Fecha,
+                ID: fila.ID
+            })
+        )
+
+        /*for (let creds = 0; creds < datos.length; creds++) {
+            usersdb = datos[creds].Usuario;
+            passesdb = datos[creds].Contraseña;
+        }*/
+        
+        client.release()
+        
+        res.json(eventos)
+        console.log(datos)
+    }
+    catch (err){
+    console.error('Error al consultar eventos: ', err)
+    res.status(500).json(err)
+    }
+})
+
+app.get('/api/categorias', async (req, res) => {
+    try {
+        const client = await pool.connect();
+
+        console.log("Consultando categorias... ");
+
+        const result = 
+        await client.query('SELECT "ID", "Tipo" FROM "Categorias"')
+
+        const datos = result.rows;
+
+        const eventos = datos.map(
+            (fila) => ({
+                ID: fila.ID,
+                Tipo: fila.Tipo
+            })
+        )
+
+        client.release()
+        
+        res.json(eventos)
+        console.log(eventos)
+    }
+    catch (err){
+    console.error('Error al consultar categorias: ', err)
+    res.status(500).json(err)
+    }
+})
+
+app.post('/api/agregarevento', async (req, res) => {
+    try {
+        const client = await pool.connect();
+        const {Nombre, Categoria, Fecha} = req.body;
+        
+        console.log("Añadiendo evento... ", Nombre, Categoria, Fecha);
+
+        const result = 
+        await client.query('INSERT INTO "Eventos" ("Nombre", "ID_Categoria", "Fecha") VALUES ($1, $2, $3);', [Nombre, Categoria, Fecha])
+
+        const datos = result.rows;
+        client.release();
+
+        res.json(datos)
+    }
+    catch (err){
+        console.error('Error al añadir evento: ', err)
+    }
+})
+
+
+app.post('/api/eliminarevento', async (req, res) => {
+    try {
+        const client = await pool.connect();
+        const {ID} = req.body;
+        console.log("Eliminando evento ", ID);
+
+        const result = 
+        await client.query('DELETE FROM "Eventos" WHERE ("ID") = ($1);', [ID])
+
+        client.release();
+        res.json()
+    }
+    catch (err){
+        console.error('Error al eliminar: ', err)
+    }
+})
+
+app.post('/api/verinv', async (req, res) => {
+    try {
+        const client = await pool.connect();
+        const {ID} = req.body
+        console.log("Consultando invitados... ");
+
+        const result = 
+        await client.query('SELECT "Nombre", "Apellido", "DNI" FROM "Invitados" WHERE "ID_Evento" = $1;', [ID])
+
+        const datos = result.rows;
+
+        const info = datos.map(
+            (fila) => ({
+                Nombre: fila.Nombre,
+                Apellido: fila.Apellido,
+                DNI: fila.DNI
+            })
+        )
+
+        client.release()
+        
+        res.json(info)
+        console.log(info)
+    }
+    catch (err){
+    console.error('Error al consultar categorias: ', err)
+    res.status(500).json(err)
+    }
+})
+
+app.post('/api/invitar', async (req, res) => {
+    try {
+        const client = await pool.connect();
+        const {Nombre, Apellido, DNI, ID_Evento} = req.body;
+        
+        console.log("Invitando... ", Nombre, Apellido, DNI, ID_Evento);
+
+        const result = 
+        await client.query('INSERT INTO "Invitados" ("Nombre", "Apellido", "DNI", "ID_Evento") VALUES ($1, $2, $3, $4);', [Nombre, Apellido, DNI, ID_Evento])
+
+        const datos = result.rows;
+        client.release();
+
+        res.json(datos)
+    }
+    catch (err){
+        console.error('Error al invitar: ', err)
+    }
+})
+
+
 app.listen(port, () =>{
-    console.log(`Ejecutado en puerto ${port}` );
+    console.log(`Ejecutado en puerto ${port}`);
 })

@@ -9,23 +9,47 @@
                 <thead>
                     <tr>
                         <th scope="col">Nombre </th>
-                        <th scope="col">Categoría</th>
+                        <th scope="col">Tipo</th>
                         <th scope="col">Fecha</th>
+                        <th scope="col">Invitados</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
+                
                 <tbody>
-                    <tr class="">
-                        <td scope="row">R1C1</td>
-                        <td>R1C2</td>
-                        <td>R1C3</td>
+                    <tr class="" *ngFor="let evento of eventos">
+                        <td scope="row" >{{ evento.Nombre }}</td>
+                        <td>{{ evento.Categoria }}</td>
+                        <td>{{ evento.Fecha | date:"dd/MM/yyyy" }}</td>
+                        <td><button type="button" (click)="verInv(evento.ID)" class="btn btn-primary"> Ver Invitados </button></td>
+                        <td><button type="submit" (click)="eliminarEvento(evento.ID)" class="btn btn-danger"> Eliminar evento </button></td>
                     </tr>
-                    <tr class="">
-                        <td scope="row">Item</td>
-                        <td>Item</td>
-                        <td>Item</td>
-                    </tr>
+
+                    <div>
+                    <form [formGroup]="formulario" (ngSubmit)="agregarEvento()">
+                        <tr class="">
+                                <td scope="row">
+                                    <input formControlName="Nombreinput">
+                                </td>
+
+                                <td> 
+                                <select formControlName="Catinput">
+
+                                    <option *ngFor="let categoria of categorias" value="{{ categoria.ID }}"> {{categoria.Tipo}} </option>
+                                    
+                                </select>
+                                </td>
+
+                                <td> 
+                                    <input type="date" formControlName="Fechainput"> 
+                                </td>
+                                <td><button type="submit"  class="btn btn-primary"> Añadir evento </button></td>
+                        </tr>
+                    </form>
+                    </div>
                 </tbody>
             </table>
+            <router-outlet></router-outlet>
         </div>
         
     </div>

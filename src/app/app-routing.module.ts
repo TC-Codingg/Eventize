@@ -6,15 +6,20 @@ import { FaqComponent } from './pages/faq/faq.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegistroComponent } from './pages/login/registro/registro.component';
 import { MainComponent } from './pages/main/main.component';
+import { GestorUsersComponent } from './pages/admin/gestor-users/gestor-users.component';
 
 const routes: Routes = [
   {path: "inicio", component:MainComponent},
+  {path:'', redirectTo: 'inicio', pathMatch: 'full' },
 
   {path:"login", component:LoginComponent},
   {path:"registro", component:RegistroComponent},
 
   {path:"faq", component:FaqComponent},
-  {path:"eventos", component:EventosComponent},
+
+  {path:"eventos", component:EventosComponent, children:[
+    {path:"invitados", component:GestorUsersComponent}
+  ]},
   
   {path:"gestor", component:GestorComponent},
   
