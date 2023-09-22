@@ -1,4 +1,16 @@
-div {
-    margin-top: 27px;
-    background-image: radial-gradient(black,gold);
+.row-custom {
+    background-color: #000; 
+    color: #fff; 
+    padding: 10px; 
+}
+
+
+.row-custom a {
+    text-decoration: none; 
+    color: #00f; 
+}
+
+
+.row-custom p {
+    margin: 0; 
 }

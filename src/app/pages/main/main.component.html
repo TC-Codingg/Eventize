@@ -1,1 +1,39 @@
-<p>Bienvenido a Eventize</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventize</title>
+    <link rel="stylesheet" href="main.component.css"> 
+</head>
+<body>
+    <header>
+        <h1>Bienvenido a Nuestra Empresa de Gestión de Eventos</h1>
+        <p>Tu fuente confiable para eventos inolvidables</p>
+    </header>
+    
+  
+
+    <main>
+        <section class="destacado">
+            <h2>Planificación de Eventos Especiales</h2>
+            <p>Desde bodas elegantes hasta fiestas de cumpleaños divertidos, estamos aquí para ayudarte a hacer realidad tus sueños.</p>
+            <a class="col" [routerLink]="['/eventos']">Ver servicios</a>
+        </section>
+
+        <section class="proceso">
+            <h2>Nuestro Proceso de Trabajo</h2>
+            <ul>
+                <li>Elegir el tipo de evento</li>
+                <li>Personalizar los detalles</li>
+                <li>Confirmar y reservar</li>
+                <li>Celebrar un evento exitoso</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Eventize tu gestor de eventos preferido</p>
+    </footer>
+</body>
+</html>
