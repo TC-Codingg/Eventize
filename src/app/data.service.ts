@@ -29,7 +29,7 @@ RegisUser(credUser: string, credPass: string){
   let datosUsuario = {
     username: credUser,
     password: credPass
-  } || null
+  } 
   
   this.http.post(this.apiurl + "registrar", datosUsuario, {headers}).subscribe(
     (response) => {
