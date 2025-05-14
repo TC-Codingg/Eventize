@@ -1,6 +1,7 @@
 const {Pool} = require('pg')
 const express = require('express');
 const cors = require('cors')
+require('dotenv').config();
 
 //const { async } = require('rxjs');
 const app = express()
@@ -15,15 +16,17 @@ app.use(express.json());
 
 let sesionVerificada = false
 
+
 const pool = new Pool({
-    user: 'fl0user',
-    host: 'ep-autumn-cake-59558031.us-east-2.aws.neon.tech',
-    database: 'base-de-datos',
-    password: 'FA0kHVcWP5al',
-    port: '5432',
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
     ssl: {
         rejectUnauthorized: false,
-    }});
+    }
+});
 
 app.post('/api/registrar', async (req, res) => {
     try {
