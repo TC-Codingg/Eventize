@@ -334,7 +334,4 @@ app.post('/api/eliminarinvitado', async (req, res) => {
     }
 })
 
-
-app.listen(port, () =>{
-    console.log(`Ejecutado en puerto ${port}`);
-})
+module.exports = app;
