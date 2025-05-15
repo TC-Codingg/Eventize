@@ -1,79 +1,81 @@
 <div [ngSwitch]="checkVerificado()">
-    <div *ngSwitchDefault class="container">
-        <h2>Inicia sesión para organizar tus eventos</h2>
-        <button type="button" [routerLink]="['/login']" class="btn btn-primary">Iniciar sesión</button>
+  <div *ngSwitchDefault class="container">
+    <h2>Inicia sesión para organizar tus eventos</h2>
+    <button type="button" [routerLink]="['/login']" class="btn btn-primary">Iniciar sesión</button>
+  </div>
+  <div *ngSwitchCase="true" class="container">
+    <h3>(Clickea en un evento para editarlo)</h3>
+    <div class="table-responsive">
+      <table class="table table-primary">
+        <thead>
+          <tr>
+            <th scope="col">Nombre </th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Invitados</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let evento of eventos">
+            <td scope="row" (click)="modEventobutton(evento.ID, evento.Nombre, evento.Categoria, evento.Fecha)">{{ evento.Nombre }}</td>
+            <td>{{ evento.Categoria }}</td>
+            <td>{{ evento.Fecha | date:'dd/MM/yyyy' }}</td>
+            <td>
+              <button type="button" (click)="verInv(evento.ID)" class="btn btn-primary">Ver Invitados</button>
+            </td>
+            <td>
+              <button type="submit" (click)="eliminarEvento(evento.ID)" class="btn btn-danger">Eliminar evento</button>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="5">
+              <form [formGroup]="formulario" (ngSubmit)="agregarEvento()" class="form-inline">
+                <div class="row">
+                  <div class="col">
+                    <input formControlName="Nombreinput" type="text" placeholder="Nombre del evento" />
+                  </div>
+                  <div class="col">
+                    <select formControlName="Catinput">
+                      <option *ngFor="let categoria of categorias" [value]="categoria.ID">{{categoria.Tipo}}</option>
+                    </select>
+                  </div>
+                  <div class="col">
+                    <input type="date" formControlName="Fechainput" />
+                  </div>
+                  <div class="col">
+                    <button type="submit" class="btn btn-primary">Añadir evento</button>
+                  </div>
+                </div>
+              </form>
+            </td>
+          </tr>
+          <tr *ngIf="mostrarMod">
+            <td colspan="5">
+              <form [formGroup]="formularionew" (ngSubmit)="modEvento()" class="form-inline">
+                <div class="row">
+                  <div class="col">
+                    <input formControlName="Nombrenewinput" [ngModel]="Nombrenew" type="text" placeholder="Nuevo nombre" />
+                  </div>
+                  <div class="col">
+                    <select formControlName="Catnewinput">
+                      <option *ngFor="let categoria of categorias" [value]="categoria.ID">{{categoria.Tipo}}</option>
+                    </select>
+                  </div>
+                  <div class="col">
+                    <input type="date" [ngModel]="Fechanew" formControlName="Fechanewinput" />
+                  </div>
+                  <div class="col">
+                    <button type="submit" class="btn btn-warning">Editar evento</button>
+                  </div>
+                </div>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <router-outlet></router-outlet>
     </div>
-    <div *ngSwitchCase="true" class="container">
-        <h3>(Clickea en un evento para editarlo)</h3>
-        <div class="table-responsive">
-            <table class="table table-primary">
-                <thead>
-                    <tr>
-                        <th scope="col">Nombre </th>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Invitados</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                
-                <tbody>
-                    <tr class="" *ngFor="let evento of eventos">
-                        <td scope="row" (click)="modEventobutton(evento.ID, evento.Nombre, evento.Categoria, evento.Fecha)" >{{ evento.Nombre }}</td>
-                        <td>{{ evento.Categoria }}</td>
-                        <td>{{ evento.Fecha | date:"dd/MM/yyyy" }}</td>
-                        <td><button type="button" (click)="verInv(evento.ID)" class="btn btn-primary"> Ver Invitados </button></td>
-                        <td><button type="submit" (click)="eliminarEvento(evento.ID)" class="btn btn-danger"> Eliminar evento </button></td>
-                    </tr>
-
-                    <div>
-                    <form [formGroup]="formulario" (ngSubmit)="agregarEvento()">
-                        <tr class="">
-                                <td scope="row">
-                                    <input formControlName="Nombreinput">
-                                </td>
-
-                                <td> 
-                                <select formControlName="Catinput">
-
-                                    <option *ngFor="let categoria of categorias" value="{{ categoria.ID }}"> {{categoria.Tipo}} </option>
-                                    
-                                </select>
-                            </td>
-                            
-                            <td> 
-                                <input type="date" formControlName="Fechainput"> 
-                            </td>
-                                <td><button type="submit"  class="btn btn-primary"> Añadir evento </button></td>
-                        </tr>
-                    </form>
-                    <form [ngSwitch]="mostrarMod" [formGroup]="formularionew" (ngSubmit)="modEvento()">
-                        <tr *ngSwitchCase="true" class="">
-                            <td scope="row">
-                                <input formControlName="Nombrenewinput" [ngModel] ="Nombrenew">
-                            </td>
-
-                            <td> 
-                            <select formControlName="Catnewinput">
-                                
-                                <option *ngFor="let categoria of categorias" value="{{ categoria.ID }}"> {{categoria.Tipo}} </option>
-
-                                
-                            </select>
-                            </td>
-
-                            <td> 
-                                <input type="date" [ngModel]="Fechanew" formControlName="Fechanewinput"> 
-                            </td>
-                            <td><button type="submit" class="btn btn-warning"> Editar evento </button></td>
-                        </tr>
-                    </form>
-                    </div>
-                </tbody>
-            </table>
-            <router-outlet></router-outlet>
-        </div>
-        
-    </div>
-<div class="sangria"></div>
+  </div>
+  <div class="sangria"></div>
 </div>

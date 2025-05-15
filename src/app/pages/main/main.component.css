@@ -1,25 +1,44 @@
-
 body {
-    font-family: Arial, sans-serif;
-    background-color: #d2b48c; 
-    color: #333; 
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f4f6fb;
+    color: #232946;
     margin: 0;
     padding: 0;
 }
 
 header {
+    background: linear-gradient(90deg, #232946 60%, #3e4a7b 100%);
+    color: #fff;
+    padding: 64px 0 36px 0;
+    border-radius: 0 0 24px 24px;
+    box-shadow: 0 4px 24px rgba(35,41,70,0.10);
     text-align: center;
-    padding: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
+}
+
+.brand {
+    color: #eebbc3;
+    font-weight: 800;
+    letter-spacing: 1px;
 }
 
 h1 {
-    font-size: 36px;
-    font-weight: bold;
-    color: #800080; 
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
 }
 
-p {
-    font-size: 18px;
+header p {
+    font-size: 1.25rem;
+    color: #b8c1ec;
+    margin-bottom: 0;
 }
 
 nav {
@@ -41,7 +60,7 @@ nav li {
 
 nav a {
     text-decoration: none;
-    color: #333; 
+    color: #333;
     font-weight: bold;
     font-size: 16px;
     transition: color 0.3s;
@@ -52,12 +71,130 @@ nav a:hover {
 }
 
 main {
-    padding: 20px;
+    padding: 48px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 60vh;
+    background: #f4f6fb;
+}
+
+.destacado, .proceso {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(35,41,70,0.10);
+    margin-bottom: 40px;
+    padding: 40px 36px;
+    max-width: 540px;
+    width: 100%;
+    text-align: center;
+    animation: fadeInUp 0.8s cubic-bezier(.39,.575,.565,1) both;
+}
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(40px);}
+    100% { opacity: 1; transform: translateY(0);}
+}
+
+h2 {
+    color: #232946;
+    font-size: 1.5rem;
+    margin-bottom: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.icon {
+    font-size: 1.5rem;
+    vertical-align: middle;
+}
+
+.destacado p {
+    color: #232946;
+    font-size: 1.13rem;
+    margin-bottom: 0;
+}
+
+ul {
+    padding-left: 0;
+    text-align: left;
+    color: #232946;
+    font-size: 1.08rem;
+    list-style: none;
+    margin: 0;
+}
+
+ul li {
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.step {
+    display: inline-block;
+    background: #eebbc3;
+    color: #232946;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    line-height: 28px;
+    margin-right: 8px;
+    font-size: 1rem;
+    box-shadow: 0 2px 6px rgba(238,187,195,0.15);
+}
+
+a.col {
+    display: inline-block;
+    margin-top: 16px;
+    background: #1976d2;
+    color: #fff;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+a.col:hover {
+    background: #125ea7;
+    color: #fff;
+}
+
+.btn-principal {
+    display: inline-block;
+    margin-top: 22px;
+    background: linear-gradient(90deg, #232946 70%, #eebbc3 120%);
+    color: #fff;
+    padding: 14px 38px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1.12rem;
+    border: none;
+    box-shadow: 0 2px 8px rgba(35,41,70,0.10);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    cursor: pointer;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+}
+.btn-principal:hover {
+    background: linear-gradient(90deg, #1a1f33 70%, #eebbc3 120%);
+    box-shadow: 0 6px 18px rgba(35,41,70,0.18);
+    color: #fff;
+    transform: translateY(-2px) scale(1.03);
 }
 
 footer {
+    background: #232946;
+    color: #fff;
+    padding: 22px 0;
     text-align: center;
-    background-color: #d2b48c;
-    padding: 10px 0;
-    color: #333;
+    border-radius: 24px 24px 0 0;
+    margin-top: 48px;
+    font-size: 1rem;
+    letter-spacing: 1px;
 }

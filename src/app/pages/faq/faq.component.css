@@ -9,9 +9,9 @@ body {
 
 header {
     text-align: center;
-    background-color: #800080; /* Violeta */
-    color: #fff; /* Texto blanco */
-    padding: 20px 0;
+    background: #1a2233;
+    color: #fff;
+    padding: 24px 0;
 }
 
 h1 {
@@ -20,25 +20,31 @@ h1 {
 }
 
 main {
-    padding: 20px;
+    padding: 32px 0;
 }
 
 .preguntas {
-    margin-bottom: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin-bottom: 24px;
+    padding: 24px;
 }
 
 h2 {
-    font-size: 24px;
-    color: #800080; /* Violeta */
+    color: #1976d2;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
 }
 
 p {
-    font-size: 18px;
+    font-size: 1.1rem;
+    color: #222;
 }
 
 footer {
+    background: #1a2233;
+    color: #fff;
+    padding: 18px 0;
     text-align: center;
-    background-color: #d2b48c; /* Fondo beige más fuerte */
-    padding: 10px 0;
-    color: #333; /* Color de texto oscuro */
 }

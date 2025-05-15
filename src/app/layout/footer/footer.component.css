@@ -1,18 +1,21 @@
 .row-custom {
-    background-color: #000; 
-    color: #fff; 
-    padding: 10px; 
+  background: #1a2233;
+  color: #fff;
+  padding: 18px 0;
+  text-align: center;
 }
-
-
 .row-custom a {
-    text-decoration: none; 
-    color: #00f; 
+  color: #90caf9;
+  margin: 0 12px;
+  font-weight: 500;
 }
-
-
+.row-custom a:hover {
+  color: #fff;
+}
 .row-custom p {
-    margin: 0; 
+  margin: 0;
+  font-size: 15px;
+  letter-spacing: 1px;
 }
 
 div {

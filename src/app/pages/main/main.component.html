@@ -8,32 +8,40 @@
 </head>
 <body>
     <header>
-        <h1>Bienvenido a Nuestra Empresa de Gestión de Eventos</h1>
-        <p>Tu fuente confiable para eventos inolvidables</p>
+        <div class="header-content">
+            <h1>Bienvenido a <span class="brand">Eventize</span></h1>
+            <p>Tu fuente confiable para eventos inolvidables</p>
+        </div>
     </header>
-    
-  
 
     <main>
         <section class="destacado">
-            <h2>Planificación de Eventos Especiales</h2>
-            <p>Desde bodas elegantes hasta fiestas de cumpleaños divertidos, estamos aquí para ayudarte a hacer realidad tus sueños.</p>
-            <a class="col" [routerLink]="['/eventos']">Ver servicios</a>
+            <h2>
+                <span class="icon">🎉</span>
+                Planificación de Eventos Especiales
+            </h2>
+            <p>
+                Desde bodas elegantes hasta fiestas de cumpleaños, estamos aquí para ayudarte a hacer realidad tus sueños.
+            </p>
+            <a class="btn-principal" [routerLink]="['/eventos']">Ver servicios</a>
         </section>
 
         <section class="proceso">
-            <h2>Nuestro Proceso de Trabajo</h2>
+            <h2>
+                <span class="icon">🛠️</span>
+                Nuestro Proceso de Trabajo
+            </h2>
             <ul>
-                <li>Elegir el tipo de evento</li>
-                <li>Personalizar los detalles</li>
-                <li>Confirmar y reservar</li>
-                <li>Celebrar un evento exitoso</li>
+                <li><span class="step">1</span> Elegir el tipo de evento</li>
+                <li><span class="step">2</span> Personalizar los detalles</li>
+                <li><span class="step">3</span> Confirmar y reservar</li>
+                <li><span class="step">4</span> Celebrar un evento exitoso</li>
             </ul>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2023 Eventize: tu gestor de eventos preferido</p>
+        <p>&copy; 2023 <span class="brand">Eventize</span>: tu gestor de eventos preferido</p>
     </footer>
 </body>
 </html>
