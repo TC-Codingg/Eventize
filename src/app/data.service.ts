@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class DataService {
-  private apiurl = 'http://localhost:3000/api/';
+  private apiurl = '/api/';
 
   verificado: boolean = false;
   
