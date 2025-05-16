@@ -1,23 +1,132 @@
 .row-custom {
-  background: #1a2233;
+  background: linear-gradient(90deg, #232946 60%, #b8c1ec 100%);
   color: #fff;
-  padding: 18px 0;
+  padding: 24px 0 20px 0;
   text-align: center;
+  box-shadow: 0 -4px 24px #23294655;
+  border-top: 3px solid #eebbc3;
+  position: relative;
+  z-index: 2;
+  animation: footerFadeIn 1.2s cubic-bezier(.39,.575,.565,1) both;
 }
+
+@keyframes footerFadeIn {
+  0% { opacity: 0; transform: translateY(40px);}
+  100% { opacity: 1; transform: translateY(0);}
+}
+
 .row-custom a {
   color: #90caf9;
   margin: 0 12px;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 16px;
+  transition: color 0.18s, text-shadow 0.18s;
 }
+
 .row-custom a:hover {
   color: #fff;
+  text-shadow: 0 2px 8px #eebbc3cc;
 }
+
 .row-custom p {
   margin: 0;
-  font-size: 15px;
+  font-size: 16px;
   letter-spacing: 1px;
+  color: #fff;
+  text-shadow: 0 2px 8px #23294699;
 }
 
 div {
-    text-align: center;
+  text-align: center;
+}
+
+.footer-credits {
+  font-size: 17px;
+  color: #eebbc3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  margin-top: 8px;
+  background: rgba(35,41,70,0.18);
+  border-radius: 18px;
+  padding: 8px 18px;
+  box-shadow: 0 2px 12px #eebbc344;
+  animation: creditsPop 1.2s cubic-bezier(.39,.575,.565,1) both;
+}
+
+@keyframes creditsPop {
+  0% { opacity: 0; transform: scale(0.8);}
+  80% { opacity: 1; transform: scale(1.08);}
+  100% { opacity: 1; transform: scale(1);}
+}
+
+.github-label {
+  margin-right: 10px;
+  color: #fff;
+  font-weight: 900;
+  font-size: 17px;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 12px #b8c1ec88;
+}
+
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  background: #232946;
+  color: #eebbc3;
+  border-radius: 18px;
+  padding: 6px 16px 6px 10px;
+  margin: 0 4px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 2px 8px #b8c1ec55;
+  border: 2px solid #eebbc3;
+  font-size: 16px;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.12s, border-color 0.18s;
+  position: relative;
+  overflow: hidden;
+}
+
+.github-link:hover {
+  background: #eebbc3;
+  color: #232946;
+  box-shadow: 0 4px 24px #eebbc3cc;
+  transform: translateY(-2px) scale(1.07) rotate(-2deg);
+  border-color: #232946;
+  text-shadow: 0 2px 8px #fff;
+}
+
+.github-link::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 0; height: 0;
+  background: rgba(184,193,236,0.18);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s, height 0.4s;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.github-link:hover::after {
+  width: 220%;
+  height: 220%;
+  background: rgba(35,41,70,0.08);
+}
+
+.github-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  filter: drop-shadow(0 0 4px #fff);
+  vertical-align: middle;
+  transition: filter 0.18s;
+}
+
+.github-link:hover .github-icon {
+  filter: drop-shadow(0 0 8px #232946);
 }
