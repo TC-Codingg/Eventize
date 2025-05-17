@@ -10,10 +10,18 @@ const pool = new Pool({
 });
 
 module.exports = async (req, res) => {
-  if (req.method !== 'GET') return res.status(405).send('Method Not Allowed');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET');
+  
+  if (req.method !== 'GET') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
   try {
-    const { idUsuario } = req.query.idUsuario || req.params.idUsuario;
-    if (!idUsuario) return res.status(400).json({ error: 'Falta ID de Usuario' });
+    const idUsuario = req.query.idUsuario;
+    if (!idUsuario) {
+      return res.status(400).json({ error: 'Falta ID de Usuario' });
+    }
 
     const result = await pool.query(
       `SELECT e."Nombre", c."Tipo", e."Fecha", e."ID"
@@ -29,9 +37,10 @@ module.exports = async (req, res) => {
       Fecha: fila.Fecha,
       ID: fila.ID
     }));
-    res.json(eventos);
+
+    return res.status(200).json(eventos);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: err.message });
+    console.error('Error in /api/eventos/[idUsuario]:', err);
+    return res.status(500).json({ error: err.message });
   }
 };
