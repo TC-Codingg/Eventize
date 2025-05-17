@@ -8,13 +8,13 @@ const app = express()
 const port = 3000;
 
 app.use(cors({
-    origin: 'http://localhost:4200'
+    origin: 'http://localhost:3000'
 }))
 
 app.use(express.json());
 
 
-let sesionVerificada = false
+let sesionVerificada = 0
 
 
 const pool = new Pool({
@@ -79,7 +79,7 @@ app.post('/api/verificar', async (req, res) => {
         //console.log("Verificando... ", username, password);
 
         const result = 
-        await client.query('SELECT "Usuario", "Contraseña" FROM "Usuarios"')
+        await client.query('SELECT "Usuario", "Contraseña", "ID" FROM "Usuarios"')
 
         const datos = result.rows;
 
@@ -91,6 +91,7 @@ app.post('/api/verificar', async (req, res) => {
                 console.log("Verificadooo");
                 verificado = true
                 session = [username, password]
+                sesionVerificada = session
                 break;
         }
         }
@@ -99,7 +100,9 @@ app.post('/api/verificar', async (req, res) => {
         client.release();
 
         if (verificado){
-            res.json({verificado: true})
+            // Busca el ID del usuario autenticado
+            const usuario = datos.find(u => u.Usuario === username && u.Contraseña === password);
+            res.json({verificado: true, idUsuario: usuario.ID});
         }
         else{
             res.status(503).json()
@@ -139,44 +142,35 @@ app.get('/api/traersesion', async (req, res) => {
 })*/ 
 
 
-app.get('/api/eventos', async (req, res) => {
+app.get('/api/eventos/:idUsuario', async (req, res) => {
     try {
         const client = await pool.connect();
+        const idUsuario = req.params.idUsuario;
 
-        /*let usersdb = []
-        let passesdb = []*/
+        console.log("Consultando eventos del usuario:", idUsuario);
 
-        console.log("Consultando eventos... ");
+        const result = await client.query(
+            `SELECT e."Nombre", c."Tipo", e."Fecha", e."ID"
+             FROM "Eventos" e
+             JOIN "Categorias" c ON e."ID_Categoria" = c."ID"
+             WHERE e."ID_Usuario" = $1`,
+            [idUsuario]
+        );
 
-        const result = 
-        await client.query('SELECT e."Nombre", c."Tipo", e."Fecha", e."ID" FROM "Eventos" e JOIN "Categorias" c ON e."ID_Categoria" = c."ID"')
+        const eventos = result.rows.map(fila => ({
+            Nombre: fila.Nombre,
+            Categoria: fila.Tipo,
+            Fecha: fila.Fecha,
+            ID: fila.ID
+        }));
 
-        const datos = result.rows;
-
-        const eventos = datos.map(
-            (fila) => ({
-                Nombre: fila.Nombre,
-                Categoria: fila.Tipo,
-                Fecha: fila.Fecha,
-                ID: fila.ID
-            })
-        )
-
-        /*for (let creds = 0; creds < datos.length; creds++) {
-            usersdb = datos[creds].Usuario;
-            passesdb = datos[creds].Contraseña;
-        }*/
-        
-        client.release()
-        
-        res.json(eventos)
-        console.log(datos)
+        client.release();
+        res.json(eventos);
+    } catch (err) {
+        console.error('Error al consultar eventos: ', err);
+        res.status(500).json(err);
     }
-    catch (err){
-    console.error('Error al consultar eventos: ', err)
-    res.status(500).json(err)
-    }
-})
+});
 
 app.get('/api/categorias', async (req, res) => {
     try {
@@ -210,12 +204,15 @@ app.get('/api/categorias', async (req, res) => {
 app.post('/api/agregarevento', async (req, res) => {
     try {
         const client = await pool.connect();
-        const {Nombre, Categoria, Fecha} = req.body;
+        const {Nombre, Categoria, Fecha, ID_Usuario} = req.body;
         
         console.log("Añadiendo evento... ", Nombre, Categoria, Fecha);
 
         const result = 
-        await client.query('INSERT INTO "Eventos" ("Nombre", "ID_Categoria", "Fecha") VALUES ($1, $2, $3);', [Nombre, Categoria, Fecha])
+        await client.query(
+            'INSERT INTO "Eventos" ("Nombre", "ID_Categoria", "Fecha", "ID_Usuario") VALUES ($1, $2, $3, $4);',
+            [Nombre, Categoria, Fecha, ID_Usuario]
+        );
 
         const datos = result.rows;
         client.release();
@@ -333,5 +330,9 @@ app.post('/api/eliminarinvitado', async (req, res) => {
         console.error('Error al eliminar invitado: ', err)
     }
 })
+
+app.listen(port, () => {
+  console.log(`Servidor backend escuchando en http://localhost:${port}`);
+});
 
 module.exports = app;

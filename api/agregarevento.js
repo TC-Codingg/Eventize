@@ -12,8 +12,11 @@ const pool = new Pool({
 module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
   try {
-    const { Nombre, Categoria, Fecha } = req.body;
-    await pool.query('INSERT INTO "Eventos" ("Nombre", "ID_Categoria", "Fecha") VALUES ($1, $2, $3);', [Nombre, Categoria, Fecha]);
+    const { Nombre, Categoria, Fecha, ID_Usuario } = req.body;
+    await pool.query(
+      'INSERT INTO "Eventos" ("Nombre", "ID_Categoria", "Fecha", "ID_Usuario") VALUES ($1, $2, $3, $4);',
+      [Nombre, Categoria, Fecha, ID_Usuario]
+    );
     res.status(200).json({ ok: true });
   } catch (err) {
     res.status(500).json({ error: err.message });

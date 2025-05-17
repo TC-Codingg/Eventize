@@ -14,6 +14,7 @@ export class DataService {
   private apiurl = '/api/';
 
   verificado: boolean = false;
+  userId: string | null = null;
   
   constructor(private http: HttpClient, private router: Router) {}
   
@@ -45,19 +46,16 @@ Login(UserLog: string, PassLog: string){
     username: UserLog,
     password: PassLog
   }
-  console.log(UserLog + PassLog + " en fase 2")
-
-  this.http.post(this.apiurl + "verificar", datosLog).subscribe(
+  this.http.post<{verificado: boolean, idUsuario: string}>(this.apiurl + "verificar", datosLog).subscribe(
     (response) => {
       alert("Bienvenido a Eventize " + UserLog)
       this.verificado = true
-    
+      this.userId = response.idUsuario; 
     },
     (error) =>{
       alert("Credenciales incorrectas. Intente nuevamente")
     }
   );
-  
 }
 
 verificar (){
@@ -97,7 +95,7 @@ EliminarUser(UserLog: string, PassLog: string){
 
 eventos: string[] = []
 getEventos(): Observable<{Nombre: string, Categoria: string, Fecha: string, ID: string}[]>{
-  return this.http.get<{Nombre: string, Categoria: string, Fecha: string, ID: string}[]>(this.apiurl + "eventos")
+  return this.http.get<{Nombre: string, Categoria: string, Fecha: string, ID: string}[]>(this.apiurl + "eventos/" + this.userId);
     }
 
 getCat(): Observable<{ID: string, Tipo: string}[]>
@@ -109,7 +107,8 @@ añadirEvento(Nombreinput: string, Catinput: string, Fechainput: string){
   let datosEvento = {
     Nombre: Nombreinput,
     Categoria: Catinput,
-    Fecha: Fechainput
+    Fecha: Fechainput,
+    ID_Usuario: this.userId
   }
 
 

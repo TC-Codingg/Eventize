@@ -13,9 +13,11 @@ module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
   try {
     const { username, password } = req.body;
-    const result = await pool.query('SELECT "Usuario", "Contraseña" FROM "Usuarios"');
+    const result = await pool.query('SELECT "Usuario", "Contraseña", "ID" FROM "Usuarios"');
     const user = result.rows.find(u => u.Usuario === username && u.Contraseña === password);
-    if (user) return res.json({ verificado: true });
+    if (user) {
+      return res.json({ verificado: true, idUsuario: user.ID });
+    }
     res.status(503).json({ verificado: false });
   } catch (err) {
     res.status(500).json({ error: err.message });
