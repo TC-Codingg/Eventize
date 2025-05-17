@@ -12,7 +12,7 @@ const pool = new Pool({
 module.exports = async (req, res) => {
   if (req.method !== 'GET') return res.status(405).send('Method Not Allowed');
   try {
-    const { idUsuario } = req.query;
+    const idUsuario = req.query.idUsuario || req.query['idUsuario'] || req.query[Object.keys(req.query)[0]];
     if (!idUsuario) return res.status(400).json({ error: 'Falta ID de Usuario' });
 
     const result = await pool.query(
