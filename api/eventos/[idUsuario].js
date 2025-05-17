@@ -9,7 +9,7 @@ const pool = new Pool({
   ssl: { rejectUnauthorized: false }
 });
 
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   if (req.method !== 'GET') return res.status(405).send('Method Not Allowed');
   try {
     const { idUsuario } = req.query;
@@ -31,6 +31,7 @@ export default async function handler(req, res) {
     }));
     res.json(eventos);
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: err.message });
   }
 };
