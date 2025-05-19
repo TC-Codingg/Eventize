@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { response } from 'express';
 import { DataService } from 'src/app/data.service';
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-gestor-users',
@@ -11,6 +12,7 @@ import { DataService } from 'src/app/data.service';
 export class GestorUsersComponent implements OnInit {
 
   formulario: any;
+  router: any;
   constructor(private dataservice: DataService, private fb: FormBuilder){
     this.formulario = this.fb.group(
       {
@@ -24,6 +26,7 @@ export class GestorUsersComponent implements OnInit {
   invitados: {Nombre: string, Apellido: string, DNI: string}[] = []
 
   ngOnInit(): void {
+
     this.dataservice.resInv().subscribe(
       (response: {Nombre: string, Apellido: string, DNI: string}[]) => {
         this.invitados = response
@@ -46,11 +49,13 @@ export class GestorUsersComponent implements OnInit {
   Invitar(){
     this.dataservice.Invitar(this.Nombreinput.value, this.Apellidoinput.value, this.DNIinput.value)
     alert("Invitando a " + this.Nombreinput.value + " " + this.Apellidoinput)
+
+    this.dataservice.verInv(this.dataservice.eventoID)
   }
 
   EliminarInv(ID: string){
-    
     this.dataservice.EliminarInv(ID)
+
   }
 
 

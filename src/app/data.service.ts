@@ -164,14 +164,16 @@ EliminarInv(ID: string){
   this.http.post(this.apiurl + "eliminarinvitado", {DNI: ID}).subscribe(
     (response) => {
        alert ("Invitado borrado");
-       this.router.navigate(['/eventos'])
+
+       this.verInv(this.eventoID)
     }
   )
 }
 
 
 private respuestaInv = new Subject<any>();
-private eventoID = new Number()
+public eventoID = new Number()
+
 verInv(ID: Number){
   let datosID = {
     ID: ID
